@@ -3,7 +3,7 @@
 terraform {
     required_providers {
         aws = {
-            source = "hashicorp/aws"
+            source  = "hashicorp/aws"
             version = "5.12.0"
         }
     }
@@ -15,11 +15,11 @@ provider "aws" {
 }
 
 resource "aws_instance" "ec2_example" {
-    ami = "ami-08a52ddb321b32a8c"
-    instance_type = "t2.micro"
-    security_groups = "default"
-    key_name = "key-test"
+    ami             = var.ami
+    instance_type   = var.instance_type
+    key_name        = var.key_pair
+    security_groups = var.security_groups
     tags = {
-        name = "ec2_example"
+        Name = var.instance_name
     }
 }
