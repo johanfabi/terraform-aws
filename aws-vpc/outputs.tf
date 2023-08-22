@@ -1,6 +1,6 @@
 # outputs.tf 
 
-data "aws_vpc" "vpc_example" {
-    id = aws_vpc.vpc_example.id
+output "vpc_id" {
+    value = aws_vpc.vpc_example.id
 }
 

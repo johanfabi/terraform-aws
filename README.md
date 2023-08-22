@@ -27,15 +27,60 @@ sudo ./aws/install
 
 aws --version
 ```
+## Configurar credenciales AWS CLI
+### Vía AWS CLI
+Para configurar `credenciales vía AWS CLI` debemos tener previamente creada una cuenta creada en [Crear cuenta AWS](https://aws.amazon.com/) y generar el token de acceso con las siguientes instrucciones [Crear Token AWS](https://docs.aws.amazon.com/es_es/cli/latest/userguide/cli-authentication-short-term.html).
 
-### Configurar AWS CLI
-Para configurar `AWS CLI` debemos tener previamente creada una cuenta creada en [Crear cuenta AWS](https://aws.amazon.com/) y generar el token de acceso con las siguientes instrucciones [Crear Token AWS](https://docs.aws.amazon.com/es_es/cli/latest/userguide/cli-authentication-short-term.html).
-
-Una vez hemos creado y generado el token de acceso, continuamos con los siguientes passos:
-
-```
+Una vez hemos creado y generado el token de acceso, continuamos con los siguientes pasos:
 
 ```
+aws configure
+
+AWS Access Key ID [None]: <value>
+AWS Secret Access Key [None]: <value>
+Default region name [None]: us-west-2
+Default output format [None]: json
+```
+Si queremos revocar o editar estas credenciales podemos ejecutar nuevamente el comando  `aws configure` o abrir el archivo `~/.aws/credentials`
+### Como variables de ambiente (Recomendada)
+Declaramos las [variables de ambiente](https://docs.aws.amazon.com/es_es/cli/v1/userguide/cli-configure-envvars.html) con los siguientes comandos:
+```
+export AWS_ACCESS_KEY_ID=<value>
+
+export AWS_SECRET_ACCESS_KEY=<value>
+
+export AWS_DEFAULT_REGION=us-west-2
+```
+### Como variables de ambiente para Terraform
+Primero declaramos las variables de ambiente con los siguientes comandos:
+```
+export TF_VAR_access_key="<value>"
+
+export TF_VAR_secret_key="<value>"
+```
+Luego en el archivo `varibles.tf` del módulo declaramos las siguientes variiables:
+```
+variable "access_key" {
+    type        = string
+    description = "AWS Access Key."
+}
+
+variable "secret_key" {
+    type        = string
+    description = "AWS Secret Access Key."
+}
+```
+Y las usamos en el archivo `main.tf` en el bloque de `provider`.
+```
+provider "aws" {
+	region = "eu-west-3"
+	access_key = var.my_access_key
+	secret_key = var.my_secret_key
+}
+```
+
+
+
 
 
 
