@@ -39,3 +39,7 @@ terraform.rc
 # Key Pair
 *.pem
 
+# Environment variables file
+.env
+
+
