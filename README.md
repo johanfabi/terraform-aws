@@ -58,7 +58,7 @@ export TF_VAR_access_key="<value>"
 
 export TF_VAR_secret_key="<value>"
 ```
-Luego en el archivo `varibles.tf` del módulo declaramos las siguientes variiables:
+Luego en el archivo `varibles.tf` del módulo declaramos las siguientes variables:
 ```
 variable "access_key" {
     type        = string
